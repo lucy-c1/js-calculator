@@ -25,6 +25,12 @@ function App() {
     console.log(resultText);
   }, [resultText])
 
+  function handleClear() {
+    setResultText("0");
+    setEquationText("");
+    setInputsArr([]);
+  }
+
   function updateText(event, isOperation) {
     /* if it is an operation, that means the current resultText is one 
     of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
@@ -61,7 +67,9 @@ function App() {
       equationText = {equationText}
       />
       <div className = "row g-0">
-        <Clear />
+        <Clear 
+        handleClear = {handleClear}
+        />
         <Operation 
         operation = "/"
         operationId = "divide"
