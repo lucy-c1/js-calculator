@@ -41,10 +41,6 @@ button {
     margin-top: -4.7rem !important;
 
 }
-
-.submit-container {
-}
-
 button:hover {
     background-color: lightgray;
 }
@@ -57,7 +53,7 @@ button:active {
 /* style the display section */
 #equationScreen {
     background-color: darkgray;
-    color: black;
+    font-weight: bold;
     height: 1.5rem;
 }
 
@@ -70,6 +66,7 @@ button:active {
 
 #display {
     background-color: darkgray;
+    font-weight: bold;
     color: black;
 }
 

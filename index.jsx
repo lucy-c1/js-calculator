@@ -30,12 +30,16 @@ function App() {
     of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
     const newInput = event.target.value;
     if (isOperation) {
+      // inputArr
       setInputsArr(function (prevInputsArr) {
         console.log("setting inputsArr");
         return [...prevInputsArr, resultText, newInput]; // save number to array as well as operation
       })
+
+      // result text
       setResultText(newInput); // only the operation shows
     } else {
+      // result text
       if (resultText === "/" || resultText === "x" || resultText === "-" || resultText === "+" || resultText === "0") {
         setResultText("");
       }
@@ -43,6 +47,11 @@ function App() {
         return prevResultText + newInput;
       })
     }
+
+    // equation text - does not clear until the user presses the clear button or after the user types after an equal
+    setEquationText(function (prevEquationText) {
+      return prevEquationText + newInput;
+    });
   }
 
   return (
