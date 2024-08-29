@@ -31,6 +31,67 @@ function App() {
     setInputsArr([]);
   }
 
+  function performOperation(operation, operationIndex, arr) {
+    const num1 = parseFloat(arr[operationIndex - 1]);
+    const num2 = parseFloat(arr[operationIndex + 1]);
+    let result = 0;
+    if (operation === "x") {
+      result = num1 * num2;
+    } else if (operation === "/") {
+      result = num1 / num2;
+    } else if (operation === "+") {
+      result = num1 + num2;
+    } else {
+      result = num1 - num2;
+    }
+    console.log(num1 + operation + num2 + "=" + result);
+    
+    // delete from arr the 2 nums and operation, add result at that location
+    let resultArr = arr.slice(0, operationIndex - 1);
+    resultArr.push(result);
+    resultArr = resultArr.concat(arr.slice(operationIndex + 2));
+
+    console.log(resultArr);
+
+    return resultArr;
+  }
+
+  function handleEquals() {
+    let inputsArrCopy = [...inputsArr];
+    inputsArrCopy.push(resultText);
+
+    let additionIndex = inputsArrCopy.indexOf("+");
+    while (additionIndex != -1) {
+      inputsArrCopy = performOperation("+", additionIndex, inputsArrCopy);
+      additionIndex = inputsArrCopy.indexOf("+");
+    }
+
+    // /* a copy of array inputsArr so that there is no need to deal with states */
+    // let inputsArrCopy = [...inputsArr];
+
+    // /* push whatever that is in resultText to the inputsArrCopy */
+    // inputsArrCopy.push(resultText);
+
+    // /* calculate result based on order of operations */
+    // // an operation should always have a number to the left of it and to the right of it
+    // // multiply and divide until there is no more * or / in array
+    // let multiplyIndex = inputsArrCopy.indexOf("x");
+    // let divisionIndex = inputsArrCopy.indexOf("/");
+
+    // while (multiplyIndex != -1 || divisionIndex != -1) {
+    //   // perform division
+    //   inputsArrCopy = performOperation("/", divisionIndex, inputsArrCopy);
+    //   // recalculate index
+    //   divisionIndex = inputsArrCopy.indexOf("/");
+    // }
+
+    // /* if the user types a number after pressing equals, push it to inputsArr
+    // or make it so that it pushes by default and clear it if the user clicks on a digit in updateText
+    // */
+
+    // /* cut off .0. Ex: 2.0 turns into 2 */
+  }
+
   function updateText(event, isOperation) {
     /* if it is an operation, that means the current resultText is one 
     of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
@@ -171,7 +232,9 @@ function App() {
         colSpace = "col-3"
         updateText = {updateText}
         />
-        <Submit />
+        <Submit 
+        handleEquals = {handleEquals}
+        />
       </div>
       <p id = "credit">by <a href="https://github.com/lucy-c1/js-calculator" target = "_blank">lucy-c1</a></p>
     </div>
