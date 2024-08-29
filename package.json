@@ -1,6 +1,9 @@
 {
   "name": "Scrim-s00fsopfdn",
+  "homepage": "https://lucy-c1.github.io/js-calculator",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
