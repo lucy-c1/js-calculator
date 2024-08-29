@@ -172,7 +172,7 @@ function App() {
   function updateText(event, isOperation) {
     const newInput = event.target.value;
     // checks if the - denotes an operator or a negative number
-    const isNegative = isOperation && newInput === "-" && (resultText === "+" || resultText === "-" || resultText === "/" || resultText === "x");
+    const isNegative = isOperation && newInput === "-" && (resultText === "+" || resultText === "-" || resultText === "/" || resultText === "x") || (isOperation && newInput === "-" && resultText === "");
     console.log(isNegative);
 
     if (checkValidInput(newInput, isOperation)) {
