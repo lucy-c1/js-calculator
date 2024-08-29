@@ -8,3 +8,37 @@ body {
 h1 {
     margin-top: 40px;
 }
+
+/* style the input section */
+button {
+    width: 100%;
+}
+
+.input-container {
+    width: 30rem;
+}
+
+.digitButton {
+    padding: 1.5rem;
+}
+
+.operationButton {
+    padding: 1.5rem;
+}
+
+#clear {
+    padding: 1.5rem;
+}
+
+#equals {
+    height: 9.4rem;
+    position: relative;
+    margin-top: -4.7rem !important;
+
+}
+
+.submit-container {
+}
+
+
+/* style the display section */

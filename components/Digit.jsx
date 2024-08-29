@@ -7,8 +7,8 @@ Props:
 */
 export default function Digit(props) {
     return (
-        <div>
-            <button id = {props.digitId}>
+        <div className = {`${props.colSpace}`}>
+            <button id = {props.digitId} className = "digitButton">
                 {props.digitNum}
             </button>
         </div>

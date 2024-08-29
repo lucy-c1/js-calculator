@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Clear() {
     return (
-        <div>
+        <div className = "col-6">
             <button id = "clear">
                 AC
             </button>

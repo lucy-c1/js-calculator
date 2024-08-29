@@ -8,69 +8,97 @@ import Display from './components/Display';
 
 function App() {
   return (
-    <div>
-      <Clear />
-      <Operation 
-      operation = "/"
-      operationId = "divide"
-      />
-      <Operation 
-      operation = "X"
-      operationId = "multiply"
-      />
-      <Digit 
-      digitNum = "7"
-      digitId = "seven"
-      />
-      <Digit 
-      digitNum = "8"
-      digitId = "eight"
-      />
-      <Digit 
-      digitNum = "9"
-      digitId = "nine"
-      />
-      <Operation 
-      operation = "-"
-      operationId = "subtract"
-      />
-      <Digit 
-      digitNum = "4"
-      digitId = "four"
-      />
-      <Digit 
-      digitNum = "5"
-      digitId = "five"
-      />
-      <Digit 
-      digitNum = "6"
-      digitId = "six"
-      />
-      <Operation 
-      operation = "+"
-      operationId = "add"
-      />
-      <Digit 
-      digitNum = "1"
-      digitId = "one"
-      />
-      <Digit 
-      digitNum = "2"
-      digitId = "two"
-      />
-      <Digit 
-      digitNum = "3"
-      digitId = "three"
-      />
-      <Digit 
-      digitNum = "0"
-      digitId = "zero"
-      />
-      <Digit 
-      digitNum = "."
-      digitId = "decimal"
-      />
-      <Submit />
+    <div className = "container input-container">
+      <div className = "row g-0">
+        <Clear />
+        <Operation 
+        operation = "/"
+        operationId = "divide"
+        colSpace = "col-3"
+        />
+        <Operation 
+        operation = "x"
+        operationId = "multiply"
+        colSpace = "col-3"
+        />
+      </div>
+
+      <div className = "row g-0">
+        <Digit 
+        digitNum = "7"
+        digitId = "seven"
+        colSpace = "col-3"
+        />
+        <Digit 
+        digitNum = "8"
+        digitId = "eight"
+        colSpace = "col-3"
+        />
+        <Digit 
+        digitNum = "9"
+        digitId = "nine"
+        colSpace = "col-3"
+        />
+        <Operation 
+        operation = "-"
+        operationId = "subtract"
+        colSpace = "col-3"
+        />
+      </div>
+
+      <div className = "row g-0">
+        <Digit 
+        digitNum = "4"
+        digitId = "four"
+        colSpace = "col-3"
+        />
+        <Digit 
+        digitNum = "5"
+        digitId = "five"
+        colSpace = "col-3"
+        />
+        <Digit 
+        digitNum = "6"
+        digitId = "six"
+        colSpace = "col-3"
+        />
+        <Operation 
+        operation = "+"
+        operationId = "add"
+        colSpace = "col-3"
+        />
+      </div>
+      <div className = "row g-0">
+        <Digit 
+        digitNum = "1"
+        digitId = "one"
+        colSpace = "col-3"
+        />
+        <Digit 
+        digitNum = "2"
+        digitId = "two"
+        colSpace = "col-3"
+        />
+        <Digit 
+        digitNum = "3"
+        digitId = "three"
+        colSpace = "col-3"
+        />
+      </div>
+      
+      <div className = "row g-0">
+        <Digit 
+        digitNum = "0"
+        digitId = "zero"
+        colSpace = "col-6"
+        />
+        <Digit 
+        digitNum = "."
+        digitId = "decimal"
+        colSpace = "col-3"
+        />
+        <Submit />
+      </div>
     </div>
   )
 }
