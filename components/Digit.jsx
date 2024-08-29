@@ -8,7 +8,13 @@ Props:
 export default function Digit(props) {
     return (
         <div className = {`${props.colSpace}`}>
-            <button id = {props.digitId} className = "digitButton">
+            <button id = {props.digitId} 
+            className = "digitButton" 
+            value = {props.digitNum}
+            onClick = {(event) => {
+                props.updateText(event, false);
+            }}
+            >
                 {props.digitNum}
             </button>
         </div>

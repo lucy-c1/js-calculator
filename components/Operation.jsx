@@ -8,7 +8,14 @@ Props:
 export default function Operation(props) {
     return (
         <div className = {`${props.colSpace}`}>
-            <button id = {props.operationId} className = "operationButton">{props.operation}</button>
+            <button id = {props.operationId} 
+            className = "operationButton" 
+            value = {props.operation}
+            onClick = {(event) => {
+                props.updateText(event, true);
+            }}>
+                {props.operation}
+            </button>
         </div>
     )
 }

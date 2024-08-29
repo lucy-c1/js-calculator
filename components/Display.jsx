@@ -1,13 +1,13 @@
 import React from "react"
 
-export default function Display() {
+export default function Display(props) {
     return (
-        <div id = "display" className = "container screen-container">
+        <div className = "container screen-container">
             <div className = "row" id = "equationScreen">
-                <p>Hello</p>
+                <p>{props.equationText}</p>
             </div>
-            <div className = "row" id = "resultScreen">
-                <p>??</p>
+            <div className = "row" id = "display">
+                <p>{props.resultText}</p>
             </div>
         </div>
     )
