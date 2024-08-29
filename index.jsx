@@ -57,39 +57,71 @@ function App() {
   }
 
   function handleEquals() {
+    /* a copy of array inputsArr so that there is no need to deal with states */
     let inputsArrCopy = [...inputsArr];
+
+    /* push whatever that is in resultText to the inputsArrCopy */
     inputsArrCopy.push(resultText);
 
-    let additionIndex = inputsArrCopy.indexOf("+");
-    while (additionIndex != -1) {
-      inputsArrCopy = performOperation("+", additionIndex, inputsArrCopy);
-      additionIndex = inputsArrCopy.indexOf("+");
+    /* calculate result based on order of operations */
+    // an operation should always have a number to the left of it and to the right of it
+    // multiply and divide until there is no more * or / in array
+    let multiplyIndex = inputsArrCopy.indexOf("x");
+    let divisionIndex = inputsArrCopy.indexOf("/");
+
+    while (multiplyIndex != -1 || divisionIndex != -1) {
+      if (multiplyIndex === -1) {
+        // perform division
+        inputsArrCopy = performOperation("/", divisionIndex, inputsArrCopy);
+      } else if (divisionIndex === -1) {
+        // perform multiplication
+        inputsArrCopy = performOperation("x", multiplyIndex, inputsArrCopy);
+      } else if (multiplyIndex < divisionIndex) {
+        // perform multiplication
+        inputsArrCopy = performOperation("x", multiplyIndex, inputsArrCopy);
+      } else if (divisionIndex < multiplyIndex) {
+        // perform division
+        inputsArrCopy = performOperation("/", divisionIndex, inputsArrCopy);
+      }
+
+      // recalculate index because inpursArrCopy changed
+      multiplyIndex = inputsArrCopy.indexOf("x");
+      divisionIndex = inputsArrCopy.indexOf("/");
     }
 
-    // /* a copy of array inputsArr so that there is no need to deal with states */
-    // let inputsArrCopy = [...inputsArr];
+    // add and subtract until there is no more + or - in array
+    let additionIndex = inputsArrCopy.indexOf("+");
+    let subtractIndex = inputsArrCopy.indexOf("-");
 
-    // /* push whatever that is in resultText to the inputsArrCopy */
-    // inputsArrCopy.push(resultText);
+    while (additionIndex != -1 || subtractIndex != -1) {
+      if (additionIndex === -1) {
+        // perform subtraction
+        inputsArrCopy = performOperation("-", subtractIndex, inputsArrCopy);
+      } else if (subtractIndex === -1) {
+        // perform addition
+        inputsArrCopy = performOperation("+", additionIndex, inputsArrCopy);
+      } else if (additionIndex < subtractIndex) {
+        // perform addition
+        inputsArrCopy = performOperation("+", additionIndex, inputsArrCopy);
+      } else if (subtractIndex < additionIndex) {
+        // perform subtraction
+        inputsArrCopy = performOperation("-", subtractIndex, inputsArrCopy);
+      }
 
-    // /* calculate result based on order of operations */
-    // // an operation should always have a number to the left of it and to the right of it
-    // // multiply and divide until there is no more * or / in array
-    // let multiplyIndex = inputsArrCopy.indexOf("x");
-    // let divisionIndex = inputsArrCopy.indexOf("/");
+      // recalculate index because inpursArrCopy changed
+      additionIndex = inputsArrCopy.indexOf("+");
+      subtractIndex = inputsArrCopy.indexOf("-");
+    }
 
-    // while (multiplyIndex != -1 || divisionIndex != -1) {
-    //   // perform division
-    //   inputsArrCopy = performOperation("/", divisionIndex, inputsArrCopy);
-    //   // recalculate index
-    //   divisionIndex = inputsArrCopy.indexOf("/");
-    // }
+    // at this point there should only be one number in inputsArrCopy
+    console.log("Result: ");
+    console.log(inputsArrCopy);
 
-    // /* if the user types a number after pressing equals, push it to inputsArr
-    // or make it so that it pushes by default and clear it if the user clicks on a digit in updateText
-    // */
+    /* if the user types a number after pressing equals, push it to inputsArr
+    or make it so that it pushes by default and clear it if the user clicks on a digit in updateText
+    */
 
-    // /* cut off .0. Ex: 2.0 turns into 2 */
+    /* cut off .0. Ex: 2.0 turns into 2 */
   }
 
   function updateText(event, isOperation) {
