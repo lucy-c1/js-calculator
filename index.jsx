@@ -117,6 +117,12 @@ function App() {
     console.log("Result: ");
     console.log(inputsArrCopy);
 
+    // display calculation result
+    setResultText(`${inputsArrCopy[0]}`);
+    setEquationText(function (prevEquationText) {
+      return prevEquationText + "=" + inputsArrCopy[0];
+    });
+
     /* if the user types a number after pressing equals, push it to inputsArr
     or make it so that it pushes by default and clear it if the user clicks on a digit in updateText
     */
