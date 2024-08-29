@@ -17,6 +17,15 @@ function App() {
   as elements. Perhaps use indexOf operation to check for order of operations */
   const [inputsArr, setInputsArr] = React.useState([]);
 
+  /* stores whether the user just clicked the equal button, useful for
+  implementing what to do after the user submits and the result is displayed 
+  If the user clicks on a digit:
+  reset everything as if calling handleClear()
+  If the user clicks on an operator:
+  have the result saved as the first number in equationsText and inputArr
+  */
+  const [hasJustSubmitted, setHasJustSubmitted] = React.useState(false);
+
   React.useEffect(() => {
     console.log(inputsArr);
   }, [inputsArr])
@@ -126,8 +135,8 @@ function App() {
     /* if the user types a number after pressing equals, push it to inputsArr
     or make it so that it pushes by default and clear it if the user clicks on a digit in updateText
     */
-
-    /* cut off .0. Ex: 2.0 turns into 2 */
+   setInputsArr(inputsArrCopy);
+   setHasJustSubmitted(true);
   }
 
   function updateText(event, isOperation) {
@@ -135,28 +144,47 @@ function App() {
     of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
     const newInput = event.target.value;
     if (isOperation) {
-      // inputArr
-      setInputsArr(function (prevInputsArr) {
-        console.log("setting inputsArr");
-        return [...prevInputsArr, resultText, newInput]; // save number to array as well as operation
-      })
+      // check for if the user just submitted, if so, save the first num in inputsArr
+      if (hasJustSubmitted) {
+        setEquationText(inputsArr[0] + newInput);
+        setInputsArr(function (prevInputsArr) {
+          console.log("setting inputsArr");
+          return [...prevInputsArr, newInput]; // num already in array, just append operation
+        })
+        setHasJustSubmitted(false);
+      } else {
+        // inputArr
+        setInputsArr(function (prevInputsArr) {
+          console.log("setting inputsArr");
+          return [...prevInputsArr, resultText, newInput]; // save number to array as well as operation
+        })
+      }
 
       // result text
       setResultText(newInput); // only the operation shows
     } else {
-      // result text
-      if (resultText === "/" || resultText === "x" || resultText === "-" || resultText === "+" || resultText === "0") {
-        setResultText("");
+      if (hasJustSubmitted) {
+        setResultText(newInput);
+        setInputsArr([]);
+        setEquationText(newInput);
+        setHasJustSubmitted(false);
+      } else {
+        // result text
+        if (resultText === "/" || resultText === "x" || resultText === "-" || resultText === "+" || resultText === "0") {
+          setResultText("");
+        }
+        setResultText(function (prevResultText) {
+          return prevResultText + newInput;
+        })
       }
-      setResultText(function (prevResultText) {
-        return prevResultText + newInput;
-      })
     }
 
     // equation text - does not clear until the user presses the clear button or after the user types after an equal
-    setEquationText(function (prevEquationText) {
-      return prevEquationText + newInput;
-    });
+    if (!hasJustSubmitted) {
+      setEquationText(function (prevEquationText) {
+        return prevEquationText + newInput;
+      });
+    }
   }
 
   return (
