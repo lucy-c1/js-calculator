@@ -139,52 +139,84 @@ function App() {
    setHasJustSubmitted(true);
   }
 
-  function updateText(event, isOperation) {
-    /* if it is an operation, that means the current resultText is one 
-    of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
-    const newInput = event.target.value;
-    if (isOperation) {
-      // check for if the user just submitted, if so, save the first num in inputsArr
-      if (hasJustSubmitted) {
-        setEquationText(inputsArr[0] + newInput);
-        setInputsArr(function (prevInputsArr) {
-          console.log("setting inputsArr");
-          return [...prevInputsArr, newInput]; // num already in array, just append operation
-        })
-        setHasJustSubmitted(false);
-      } else {
-        // inputArr
-        setInputsArr(function (prevInputsArr) {
-          console.log("setting inputsArr");
-          return [...prevInputsArr, resultText, newInput]; // save number to array as well as operation
-        })
+  function checkValidInput(newInput, isOperation) {
+    // checks for two decimals in one number
+    if (newInput === ".") {
+      console.log("test")
+      if (resultText.indexOf(".") !== -1) {
+        console.log("test 2")
+        return false;
       }
+    }
 
-      // result text
-      setResultText(newInput); // only the operation shows
-    } else {
-      if (hasJustSubmitted) {
+    // checks for two operations in a row
+    if (isOperation) { // newInput is an operator
+      if (resultText === "+" || resultText === "-" || resultText === "/" || resultText === "x") { // previous input is also an operator
+        // update last inputsArr operator to be the operator in newInput
+        setInputsArr(function (prevInputsArr) {
+          return prevInputsArr.splice(0, prevInputsArr.length - 1).concat(newInput);
+        })
+        // update equationText
+        setEquationText(function (prevEquationText) {
+          return prevEquationText.substring(0, prevEquationText.length - 1) + newInput;
+        })
+        // set resultText
         setResultText(newInput);
-        setInputsArr([]);
-        setEquationText(newInput);
-        setHasJustSubmitted(false);
-      } else {
-        // result text
-        if (resultText === "/" || resultText === "x" || resultText === "-" || resultText === "+" || resultText === "0") {
-          setResultText("");
-        }
-        setResultText(function (prevResultText) {
-          return prevResultText + newInput;
-        })
+        return false;
       }
     }
 
-    // equation text - does not clear until the user presses the clear button or after the user types after an equal
-    if (!hasJustSubmitted) {
-      setEquationText(function (prevEquationText) {
-        return prevEquationText + newInput;
-      });
-    }
+    return true;
+  }
+
+  function updateText(event, isOperation) {
+    const newInput = event.target.value;
+    if (checkValidInput(newInput, isOperation)) {
+      /* if it is an operation, that means the current resultText is one 
+      of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
+      if (isOperation) {
+        // check for if the user just submitted, if so, save the first num in inputsArr
+        if (hasJustSubmitted) {
+          setEquationText(inputsArr[0] + newInput);
+          setInputsArr(function (prevInputsArr) {
+            console.log("setting inputsArr");
+            return [...prevInputsArr, newInput]; // num already in array, just append operation
+          })
+          setHasJustSubmitted(false);
+        } else {
+          // inputArr
+          setInputsArr(function (prevInputsArr) {
+            console.log("setting inputsArr");
+            return [...prevInputsArr, resultText, newInput]; // save number to array as well as operation
+          })
+        }
+
+        // result text
+        setResultText(newInput); // only the operation shows
+      } else {
+        if (hasJustSubmitted) {
+          setResultText(newInput);
+          setInputsArr([]);
+          setEquationText(newInput);
+          setHasJustSubmitted(false);
+        } else {
+          // result text
+          if (resultText === "/" || resultText === "x" || resultText === "-" || resultText === "+" || resultText === "0") {
+            setResultText("");
+          }
+          setResultText(function (prevResultText) {
+            return prevResultText + newInput;
+          })
+        }
+      }
+
+      // equation text - does not clear until the user presses the clear button or after the user types after an equal
+      if (!hasJustSubmitted) {
+        setEquationText(function (prevEquationText) {
+          return prevEquationText + newInput;
+        });
+      }
+    } 
   }
 
   return (
