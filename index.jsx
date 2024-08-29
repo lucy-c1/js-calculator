@@ -150,7 +150,7 @@ function App() {
     }
 
     // checks for two operations in a row
-    if (isOperation) { // newInput is an operator
+    if (isOperation && newInput !== "-") { // newInput is an operator and newInput is not a negative number
       if (resultText === "+" || resultText === "-" || resultText === "/" || resultText === "x") { // previous input is also an operator
         // update last inputsArr operator to be the operator in newInput
         setInputsArr(function (prevInputsArr) {
@@ -171,10 +171,14 @@ function App() {
 
   function updateText(event, isOperation) {
     const newInput = event.target.value;
+    // checks if the - denotes an operator or a negative number
+    const isNegative = isOperation && newInput === "-" && (resultText === "+" || resultText === "-" || resultText === "/" || resultText === "x");
+    console.log(isNegative);
+
     if (checkValidInput(newInput, isOperation)) {
       /* if it is an operation, that means the current resultText is one 
       of the 2 numbers, clear resultScreen, if not, the user can keep typing digits */
-      if (isOperation) {
+      if (isOperation && !isNegative) { // operator and not a negative number
         // check for if the user just submitted, if so, save the first num in inputsArr
         if (hasJustSubmitted) {
           setEquationText(inputsArr[0] + newInput);
@@ -193,6 +197,8 @@ function App() {
 
         // result text
         setResultText(newInput); // only the operation shows
+      } else if (isOperation && isNegative) { // handle negative case
+        setResultText(newInput)
       } else {
         if (hasJustSubmitted) {
           setResultText(newInput);
@@ -201,7 +207,8 @@ function App() {
           setHasJustSubmitted(false);
         } else {
           // result text
-          if (resultText === "/" || resultText === "x" || resultText === "-" || resultText === "+" || resultText === "0") {
+          // if the number is negative, inputArr would not have the - element as its last element
+          if (resultText === "/" || resultText === "x" || (resultText === "-" && inputsArr[inputsArr.length - 1] === "-") || resultText === "+" || resultText === "0") {
             setResultText("");
           }
           setResultText(function (prevResultText) {
