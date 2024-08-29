@@ -9,6 +9,7 @@ import Display from './components/Display';
 function App() {
   return (
     <div className = "container input-container">
+      <Display />
       <div className = "row g-0">
         <Clear />
         <Operation 
@@ -99,6 +100,7 @@ function App() {
         />
         <Submit />
       </div>
+      <p id = "credit">by <a href="https://github.com/lucy-c1/js-calculator" target = "_blank">lucy-c1</a></p>
     </div>
   )
 }

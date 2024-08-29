@@ -3,6 +3,7 @@ body {
     background: #27292c;
     color: white;
     text-align: center;
+    font-family: "orbitron";
 }
 
 h1 {
@@ -16,6 +17,10 @@ button {
 
 .input-container {
     width: 30rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    background-color: darkgray;
 }
 
 .digitButton {
@@ -40,5 +45,51 @@ button {
 .submit-container {
 }
 
+button:hover {
+    background-color: lightgray;
+}
+
+button:active {
+    background-color: whitesmoke;
+}
+
 
 /* style the display section */
+#equationScreen {
+    background-color: darkgray;
+    color: black;
+}
+
+#equationScreen p {
+    margin: 0;
+    padding-top: 0.3rem;
+    font-size: 0.8rem;
+    padding-right: 0;
+}
+
+#resultScreen {
+    background-color: darkgray;
+    color: black;
+}
+
+#resultScreen p {
+    margin: 0;
+    padding-bottom: 0.3rem;
+    font-size: 1.3rem;
+    padding-right: 0;
+}
+
+.screen-container {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+/* credit section */
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#credit {
+    margin-top: 1rem;
+}
